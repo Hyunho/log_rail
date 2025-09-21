@@ -18,6 +18,7 @@ def fetch_reader_document_list_api(updated_after: nil, location: nil)
     # params['updatedAfter'] = updated_after if updated_after
     # params['location'] = location if location
     params['category'] = 'article'
+    # params['location'] = 'archive'
     # params['location'] = 'new'
     # params['location'] = 'feed'
 

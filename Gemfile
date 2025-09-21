@@ -61,3 +61,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "google-apis-youtube_v3", "~> 0.57.0"
+
+gem "csv", "~> 3.3"
