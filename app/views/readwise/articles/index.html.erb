@@ -1,0 +1,13 @@
+
+
+<h1 class="text-2xl font-bold">Readwise Articles</h1>
+<p class="text-gray-500 text-lg">There are <%= @articles.length %> articles</p>
+<ul class="list-disc list-inside ml-4">
+<% @articles.each do |article| %>
+    <li><a class='text-lg text-blue-500' href='/readwise/articles/<%= article['id'] %>'> 
+      <%= article['location'] %>, 
+      <%= article['last_moved_at'].to_date.strftime('%Y-%m-%d') %>,
+      <%= article['title'] %></a>
+    </li>
+<% end %>
+</ul>

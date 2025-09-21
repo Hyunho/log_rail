@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document List</title>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/css">
+        /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+        body { margin: 0; }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-5xl font-bold">Documents</h1>
+    <p class="text-gray-500 text-lg">There are <%= all_data.length %> documents</p>
+    <ul class="list-disc list-inside ml-4">
+        <%= all_data.map do |doc| 
+          "<li><a class='text-lg text-blue-500' href='/readwise/doc/#{doc['id']}'>#{doc['published_date']},  #{doc['title']}</a></li>"
+        end.join("\n        ") %>
+    </ul>
+</body>
+
+</html>

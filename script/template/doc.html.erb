@@ -1,0 +1,22 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title><%= data['title'] %></title>
+      <meta charset="UTF-8">
+    </head>
+    <body>
+    <a href="../list.html">Back to List</a>
+    <a href="<%= data['source_url'] %>" target="_blank">Go to source</a>
+    <a href="https://read.readwise.io/read/<%= data['id'] %>" target="_blank"> Open in Readwise </a>
+      <h1><%= data['title'] %></h1>
+      <h2> Summary </h2>
+      <p><%= data['summary'] %></p>
+      <h2> Content </h2>
+      <h2> Notes </h2>
+      <p><%= data['notes'] %></p>
+      <h2> Content </h2>
+      <p><%= data['content'] %></p>
+      <h2> Raw Data </h2>
+      <pre><%= JSON.pretty_generate(data) %></pre>
+    </body>
+    </html>
