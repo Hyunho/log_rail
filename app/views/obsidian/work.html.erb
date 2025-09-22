@@ -1,0 +1,25 @@
+<h1 class="text-3xl font-bold mb-6 text-gray-800">Obsidian Inbox Files</h1>
+
+<ul class="list-disc pl-6 space-y-2">
+  <% @files.each do |file| %>
+    <li class="text-lg text-gray-700 bg-white p-3 rounded-lg shadow-sm hover:bg-gray-50 transition duration-200 ease-in-out">
+      <%
+        vault_name = "telcoware"
+        # Determine the base path within the Obsidian vault based on the current action
+        base_path_in_vault = if controller.action_name == 'work'
+                               "0. Inbox/Work"
+                             else
+                               "0. Inbox"
+                             end
+        # Construct the full file path relative to the vault root
+        full_file_path_in_vault = "#{base_path_in_vault}/#{file}"
+        # Encode the file path for use in a URL query parameter
+        # encoded_file_path = URI.encode_www_form_component(full_file_path_in_vault)
+        encoded_file_path = full_file_path_in_vault
+        # Create the obsidian URL scheme link
+        obsidian_url = "obsidian://open?vault=#{vault_name}&file=#{encoded_file_path}"
+      %>
+      <%= link_to file, obsidian_url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:underline" %>
+    </li>
+  <% end %>
+</ul>

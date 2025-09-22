@@ -1,0 +1,24 @@
+<h1 class="text-3xl font-bold mb-6 text-gray-800">Obsidian Work Journal Files</h1>
+
+<ul class="list-disc pl-6 space-y-2">
+  <% @files.each do |file| %>
+    <li class="text-lg text-gray-700 bg-white p-3 rounded-lg shadow-sm hover:bg-gray-50 transition duration-200 ease-in-out">
+      <%
+        vault_name = "telcoware"
+        # The base path within the Obsidian vault for work journals
+        base_path_in_vault = "_Journals/Work/daily"
+        # Construct the full file path relative to the vault root
+        full_file_path_in_vault = "#{base_path_in_vault}/#{file}"
+        # Encode the file path for use in a URL query parameter
+        # Following the pattern in work.html.erb, direct assignment is used
+        encoded_file_path = full_file_path_in_vault
+        # Create the obsidian URL scheme link
+        obsidian_url = "obsidian://open?vault=#{vault_name}&file=#{encoded_file_path}"
+      %>
+      <%= file %> 
+      (
+      <%= link_to "Open in Obsidian", obsidian_url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:underline" %>
+      )
+    </li>
+  <% end %>
+</ul>

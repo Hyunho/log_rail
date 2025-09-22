@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get "home/index"
+  get "obsidian" => "obsidian#index", as: :obsidian_index
+  get "obsidian/work" => "obsidian#work", as: :obsidian_work
+  get "obsidian/work_journal" => "obsidian#work_journal", as: :obsidian_work_journal
   namespace :readwise do
     get "articles" => "articles#index"
     get "articles/index"

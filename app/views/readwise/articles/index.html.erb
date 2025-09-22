@@ -5,8 +5,9 @@
   <div class="space-y-8">
     <section>
       <h2 class="text-2xl font-bold text-gray-800 mb-4">New</h2>
+      <p class="text-gray-600 text-xl mb-8">There are <%= @new_articles.length %> new articles in recent 100 articles</p>
       <div class="space-y-4">
-        <% @new_articles.each do |article| %>
+        <% @new_articles.first(5).each do |article| %>
           <div class="bg-white rounded-lg shadow-md p-6">
             <a href='/readwise/articles/<%= article['id'] %>' class="block hover:text-blue-600 transition-colors">
               <div class="flex items-center gap-4 mb-3">

@@ -1,3 +1,30 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-<%= link_to "Readwise", readwise_articles_index_path %>
+<h1 class="text-3xl font-bold mb-6 text-gray-800">Home#index</h1>
+<p class="text-lg text-gray-700 mb-4">Find me in app/views/home/index.html.erb</p>
+
+<div class="space-y-4">
+  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
+    <%= link_to "Readwise", readwise_articles_index_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
+  </div>
+  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
+    <%= link_to "Obsidian Work Journal", obsidian_work_journal_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
+  </div>
+  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
+    <%
+      # Get today's date in YYYY-MM-DD format
+      today_date_str = Date.today.strftime("%Y-%m-%d")
+      vault_name = "telcoware"
+      # The base path within the Obsidian vault for work journals
+      base_path_in_vault = "_Journals/Work/daily"
+      # Construct the file name for today's journal (e.g., 2023-10-27.md)
+      file_name = "#{today_date_str}. work.md"
+      # Construct the full file path relative to the vault root
+      full_file_path_in_vault = "#{base_path_in_vault}/#{file_name}"
+      # Encode the file path for use in a URL query parameter
+      # Following the pattern in work.html.erb and work_journal.html.erb, direct assignment is used
+      encoded_file_path = full_file_path_in_vault
+      # Create the obsidian URL scheme link
+      obsidian_url = "obsidian://open?vault=#{vault_name}&file=#{encoded_file_path}"
+    %>
+    <%= link_to "Open Today's Work Journal", obsidian_url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:underline font-medium text-lg block" %>
+  </div>
+</div>
