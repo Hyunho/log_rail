@@ -1,6 +1,6 @@
 class ObsidianController < ApplicationController
   def index
-    inbox_path = "/Users/hyunho/Obsidian/telcoware/0. Inbox"
+    inbox_path = "#{ENV["OBSIDIAN_PATH"]}/0. Inbox"
 
     @files = Dir.children(inbox_path)
 
@@ -14,7 +14,7 @@ class ObsidianController < ApplicationController
   end
 
   def work
-    inbox_path = "/Users/hyunho/Obsidian/telcoware/0. Inbox/Work"
+    inbox_path = "#{ENV["OBSIDIAN_PATH"]}/0. Inbox/Work"
     @files = Dir.children(inbox_path)
 
     # absolute path
@@ -28,7 +28,7 @@ class ObsidianController < ApplicationController
   end
 
   def work_journal
-    inbox_path = "/Users/hyunho/Obsidian/telcoware/_Journals/Work/daily"
+    inbox_path = "#{ENV["OBSIDIAN_PATH"]}/_Journals/Work/daily"
     @files = Dir.children(inbox_path)
 
     # remove .DS_Store

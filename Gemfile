@@ -65,3 +65,5 @@ end
 gem "google-apis-youtube_v3", "~> 0.57.0"
 
 gem "csv", "~> 3.3"
+
+gem "redcarpet", "~> 3.6"

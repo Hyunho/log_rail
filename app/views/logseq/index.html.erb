@@ -1,0 +1,8 @@
+<h1 class="text-3xl font-bold mb-4">Logseq</h1>
+
+<p class="text-gray-600 mb-4">There are <%= @md_files.length %> md files</p>
+<ul class="space-y-2">
+  <% @md_files.each do |md_file| %>
+    <li class="px-4 py-2 bg-white rounded shadow hover:bg-gray-50"><%= link_to md_file, logseq_show_path(md_file) %></li>
+  <% end %>
+</ul>
