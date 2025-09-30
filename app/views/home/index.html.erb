@@ -1,14 +1,6 @@
 <h1 class="text-3xl font-bold mb-6 text-gray-800">Home#index</h1>
-<p class="text-lg text-gray-700 mb-4">Find me in app/views/home/index.html.erb</p>
 
-<div class="space-y-4">
-  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
-    <%= link_to "Readwise", readwise_articles_index_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
-  </div>
-  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
-    <%= link_to "Obsidian Work Journal", obsidian_work_journal_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
-  </div>
-  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
+<div class="space-y-4 ml-4">
     <%
       # Get today's date in YYYY-MM-DD format
       today_date_str = Date.today.strftime("%Y-%m-%d")
@@ -25,8 +17,8 @@
       # Create the obsidian URL scheme link
       obsidian_url = "obsidian://open?vault=#{vault_name}&file=#{encoded_file_path}"
     %>
-    <%= link_to "Open Today's Work Journal", obsidian_url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:underline font-medium text-lg block" %>
-  </div>
+
+     <h2 class="text-2xl font-bold mb-4 text-gray-800">Logseq</h2>
   <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
     <%= link_to "Logseq", logseq_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
   </div>
@@ -34,4 +26,35 @@
   <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
     <%= link_to "Open Today's Logseq Journal", logseq_show_path(today_date_str), target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:underline font-medium text-lg block" %>
   </div>
+
+  <!-- Today's Logseq Journal Content Preview -->
+  <div class="bg-white rounded-lg shadow-md p-6 mt-4">
+    <h3 class="text-xl font-semibold mb-4">Today's Logseq Journal Preview</h3>
+    <div class="prose prose-lg max-w-none">
+      <% 
+        dir_path = "/Users/hyunho/Library/Mobile Documents/iCloud~com~logseq~logseq/Documents/Base/journals/"
+        md_file = File.read("#{dir_path}/#{today_date_str}.md") rescue "No journal entry for today"
+        
+        # 단독 하이픈 라인 제거
+        md_file = md_file.gsub(/^\s*-\s*$/, '')
+
+        renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)
+        markdown = Redcarpet::Markdown.new(renderer, extensions = { autolink: true })
+        content = markdown.render(md_file)
+      %>
+      <%= content.html_safe %>
+    </div>
+  </div>
+  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
+    <%= link_to "Readwise", readwise_articles_index_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
+  </div>
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">Obsidian</h2>
+  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
+    <%= link_to "Obsidian Work Journal", obsidian_work_journal_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
+  </div>
+  <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
+
+    <%= link_to "Open Today's Work Journal", obsidian_url, target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:underline font-medium text-lg block" %>
+  </div>
+ 
 </div>

@@ -1,8 +1,9 @@
 <div class="container mx-auto px-4 py-8">
+  <%= link_to "Back to Journal List", logseq_path, class: "mt-8 mb-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
+  <%= link_to "Open in Logseq", "logseq://open?path=#{params[:id]}", class: "mt-8 mb-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
   <h1 class="text-3xl font-bold mb-4">Journal Entry</h1>
   
   <div class="prose prose-lg max-w-none">
     <%= @content.html_safe %>
   </div>
-  <%= link_to "Back to Journal List", logseq_path, class: "mt-8 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
 </div>
