@@ -24,7 +24,8 @@
   </div>
   <!-- Today's Logseq Journal -->
   <div class="bg-white rounded-lg shadow-md p-6 hover:bg-gray-50 transition duration-200 ease-in-out">
-    <%= link_to "Open Today's Logseq Journal", logseq_show_path(today_date_str), target: "_blank", rel: "noopener noreferrer", class: "text-blue-600 hover:underline font-medium text-lg block" %>
+    <%= link_to "Open Today's Logseq Journal", logseq_show_path(today_date_str), el: "noopener noreferrer", class: "text-blue-600 hover:underline font-medium text-lg block" %>
+    <%= link_to "Jira", jira_index_path, class: "text-blue-600 hover:underline font-medium text-lg block" %>
   </div>
 
   <!-- Today's Logseq Journal Content Preview -->

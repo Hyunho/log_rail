@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "obsidian" => "obsidian#index", as: :obsidian_index
   get "obsidian/work" => "obsidian#work", as: :obsidian_work
   get "obsidian/work_journal" => "obsidian#work_journal", as: :obsidian_work_journal
+
   namespace :readwise do
     get "articles" => "articles#index"
     get "articles/index"
@@ -11,6 +12,12 @@ Rails.application.routes.draw do
   get "readwise" => "readwise#index"
   get "logseq" => "logseq#index"
   get "logseq/show/:id" => "logseq#show", as: :logseq_show
+
+  get "jira" => "jira#index", as: :jira_index
+  # namespace :jira do
+  #   get "index" => "jira#index"
+  #   # get "update_cache" => "jira#update_cache"
+  # end
   # get "readwise/doc/:id" => "readwise#doc"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

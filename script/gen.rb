@@ -9,10 +9,10 @@ require 'time'
 TOKEN = 'Xh5XuViEGV2vGomFcf4xcMeAcBNgneIK3ohuNs7R1rmk29IoxB'
 
 def fetch_reader_document_list_api(updated_after: nil, location: nil)
-  # full_data = []
-  # next_page_cursor = nil
+    # full_data = []
+    # next_page_cursor = nil
 
-#   loop do
+    #   loop do
     params = {}
     # params['pageCursor'] = next_page_cursor if next_page_cursor
     # params['updatedAfter'] = updated_after if updated_after
@@ -36,10 +36,10 @@ def fetch_reader_document_list_api(updated_after: nil, location: nil)
     response = http.request(request)
     data = JSON.parse(response.body)
 
-    # full_data.concat(data['results'])
-    # next_page_cursor = data['nextPageCursor']
-    # break unless next_page_cursor
-#   end
+  # full_data.concat(data['results'])
+  # next_page_cursor = data['nextPageCursor']
+  # break unless next_page_cursor
+  #   end
 
   data['results'] if data['results']
   # full_data
@@ -49,8 +49,7 @@ end
 all_data = fetch_reader_document_list_api
 
 # clear output folder
-readwise_html_dir = Rails.root.join("public", "readwise")
-readwise_data_dir = Rails.root.join("db", "data", "readwise") 
+readwise_data_dir = Rails.root.join("db", "data", "readwise")
 
 # FileUtils.rm_rf(readwise_html_dir)
 # FileUtils.mkdir_p(readwise_html_dir)

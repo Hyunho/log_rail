@@ -15,6 +15,10 @@ class LogseqController < ApplicationController
     # 단독 하이픈 라인 제거
     md_file = md_file.gsub(/^\s*-\s*$/, '')
 
+    # read md file and remove some logseql meta data
+    md_file = md_file.gsub(/^.*logseq\.order-list-type.*\n?/, "")
+    md_file = md_file.gsub(/^.*collapsed::\ true.*\n?/, "")
+
     renderer = Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true)
     markdown = Redcarpet::Markdown.new(renderer, extensions = { autolink: true })
     puts "md_file"
@@ -24,6 +28,7 @@ class LogseqController < ApplicationController
     @content = markdown.render(md_file)
     puts @content
     
+
     render "logseq/show", locals: { content: @content }
   end
 end
