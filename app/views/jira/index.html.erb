@@ -1,0 +1,65 @@
+<div class="max-h-screen bg-gray-50 py-8 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Jira Work Logs</h1>
+            <p class="text-gray-600">Track your work hours and progress</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <%= @start_date %> ~ <%= @end_date %> work logs
+            </h3>
+            <p>
+                <%= @issues.count %> issues
+            </p>
+            <p>
+                <%= link_to "https://telcoware.atlassian.net/wiki/spaces/CORESOLDD/pages/76911268/Core3+-PL", "https://telcoware.atlassian.net/wiki/spaces/CORESOLDD/pages/76911268/Core3+-PL#Telcobase", target: "_blank", class: "text-blue-500 hover:text-blue-700" %>
+                페이지에 주간 업무 내역을 업로드 합니다.
+            </p>
+
+            <%
+=begin%>
+ <div class="mb-4">
+                <%= link_to 'Update Cache', update_cache_jira_issues_path, class: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+            </div> 
+<%
+=end%>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Key</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Issue Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Summary</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200">Time Spent</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <% @issues.each do |issue| %>
+                        <tr class="hover:bg-gray-50 transition-colors duration-150">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+                                <%= link_to issue["key"], "https://telcoware.atlassian.net/browse/#{issue["key"]}", target: "_blank" %>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= issue["issue_type"] %></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= issue["summary"] %></td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= issue["total_time_spent"] %> h</td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">
+             주간 보고용  복사 링크
+             </h2>
+             <ul>
+                <% @issues.each do |issue| %>
+                <li>
+                      <%= link_to "https://telcoware.atlassian.net/browse/#{issue["key"]}", "https://telcoware.atlassian.net/browse/#{issue["key"]}", target: "_blank" %>
+                </li>
+                <% end %>
+             </ul>
+            </div>
+        </div>
+    </div>
+</div>
