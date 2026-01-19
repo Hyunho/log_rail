@@ -1,4 +1,5 @@
 require "net/http"
+require "openssl"
 require "json"
 require "fileutils"
 require "rails"
@@ -7,8 +8,15 @@ BASE_URL = "https://telcoware.atlassian.net"
 EMAIL = ENV["ATLASSIAN_EMAIL"]
 API_TOKEN = ENV["ATLASSIAN_API_TOKEN"]
 
-START_DATE = "2025-09-25"
-END_DATE = "2025-10-01"
+# last week thursday
+default_start_date = (Date.today - ((Date.today.wday - 4) % 7)).strftime('%Y-%m-%d')
+# this week thursday
+default_end_date = (Date.today + ((4 - Date.today.wday) % 7)).strftime('%Y-%m-%d')
+
+START_DATE = "2026-01-08"
+END_DATE = default_end_date
+puts "default_start_date: #{default_start_date}, default_end_date: #{default_end_date}"
+puts "START_DATE: #{START_DATE}, END_DATE: #{END_DATE}"
 
 def fetch_issue(issue_key)
   search_url = "#{BASE_URL}/rest/api/3/issue/#{issue_key}"
@@ -17,7 +25,7 @@ def fetch_issue(issue_key)
 end
 
 def fetch_worklog_issues(start_date, end_date)
-  jql_work_query = "(project = \"Telcobase Support\" OR project = \"Telcobase 유지보수\" OR project = TBMON) AND worklogDate >= \"#{start_date}\" AND worklogDate < \"#{end_date}\""
+  jql_work_query = "(project = \"Telcobase Support\" OR project = \"Telcobase 유지보수\" OR project = TBMON) AND worklogDate >= \"#{start_date}\" AND worklogDate <= \"#{end_date}\""
   search_url = "#{BASE_URL}/rest/api/3/search/jql"
   params = {
     jql: jql_work_query,
@@ -65,7 +73,7 @@ def make_request(uri, params = {})
   req.basic_auth(EMAIL, API_TOKEN)
   req["Accept"] = "application/json"
 
-  Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+  Net::HTTP.start(uri.hostname, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
     response = http.request(req)
 
     case response.code.to_i

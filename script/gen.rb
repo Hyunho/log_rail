@@ -56,13 +56,15 @@ readwise_data_dir = Rails.root.join("db", "data", "readwise")
 FileUtils.rm_rf(readwise_data_dir)
 FileUtils.mkdir_p(readwise_data_dir)
 
+# # convert published_date to YYYY-MM-DD
 for data in all_data
-  # published_date = data['published_date'] ? Time.at(data['published_date'] / 1000).getlocal("+09:00").strftime('%Y-%m-%d') : 'No Date'
-  published_date = data['published_date'] ? Time.at(data['published_date'] / 1000).strftime('%Y-%m-%d') : 'No Date'
-  data['published_date'] = published_date
+  #   # published_date = data['published_date'] ? Time.at(data['published_date'] / 1000).getlocal("+09:00").strftime('%Y-%m-%d') : 'No Date'
+  #   published_date = data['published_date'] ? Time.at(data['published_date'] / 1000).strftime('%Y-%m-%d') : 'No Date'
+  #   data['published_date'] = published_date
+  data['published_date'] = data['published_date'] ? data['published_date'] : 'No Date'
 end
 
-# sort all_data by published_date desc
+# # sort all_data by published_date desc
 all_data.sort_by! { |data| data['published_date'] }.reverse!
 
 # list data using template/index.html with all_data

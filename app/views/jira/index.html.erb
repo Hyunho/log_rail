@@ -13,10 +13,15 @@
                 <%= @issues.count %> issues
             </p>
             <p>
-                <%= link_to "https://telcoware.atlassian.net/wiki/spaces/CORESOLDD/pages/76911268/Core3+-PL", "https://telcoware.atlassian.net/wiki/spaces/CORESOLDD/pages/76911268/Core3+-PL#Telcobase", target: "_blank", class: "text-blue-500 hover:text-blue-700" %>
+                <%= link_to "https://telcoware.atlassian.net/wiki/spaces/CORESOLDD/pages/76911268/Core3+-PL", "https://telcoware.atlassian.net/wiki/spaces/CORESOLDD/pages/76911268/Core3+-PL#Telcobase", target: "_blank", class: "text-blue-500 hover:text-blue-700"  %>
                 페이지에 주간 업무 내역을 업로드 합니다.
             </p>
-
+            <p>
+                <%= link_to "jira 페이지에서 업무 목록 확인", 
+                "https://telcoware.atlassian.net/issues/?jql=%28project%20%3D%20%22TBDEV%22%20OR%20project%20%3D%20%22TBSPT%22%20or%20project%20%3D%20%22TBMON%22%29%20and%20worklogDate%20%3E%3D%202025-10-02%20ORDER%20BY%20created%20DESC", 
+                target: "_blank", class: "text-blue-500 hover:text-blue-700" %>
+                하실 수 있습니다. 
+            </p>
             <%
 =begin%>
  <div class="mb-4">
@@ -52,10 +57,22 @@
                 <h2 class="text-xl font-semibold text-gray-800 mb-4">
              주간 보고용  복사 링크
              </h2>
+             <% grouped_issues = @issues.group_by { |issue| issue["issue_type"] } %>
+             <% grouped_issues.each do |issue_type, issues| %>
+               <div class="mb-2">
+                 <div class="font-bold text-gray-700"><%= issue_type %></div>
+                 <ul class="ml-4 list-disc">
+                   <% issues.each do |issue| %>
+                     <li>
+                      <%= link_to "https://telcoware.atlassian.net/browse/#{issue["key"]}", "https://telcoware.atlassian.net/browse/#{issue["key"]}", target: "_blank" %>
+                     </li>
+                   <% end %>
+                 </ul>
+               </div>
+             <% end %>
              <ul>
                 <% @issues.each do |issue| %>
                 <li>
-                      <%= link_to "https://telcoware.atlassian.net/browse/#{issue["key"]}", "https://telcoware.atlassian.net/browse/#{issue["key"]}", target: "_blank" %>
                 </li>
                 <% end %>
              </ul>
